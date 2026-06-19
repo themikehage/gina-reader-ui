@@ -68,7 +68,7 @@ copyBtn.addEventListener('click', () => {
   let text = '';
 
   if (currentTab === 'preview' && currentData) {
-    text = currentData.markdown || currentData.data || '';
+    text = currentData.markdown || currentData.data?.content || currentData.data || '';
   } else if (currentTab === 'markdown') {
     text = markdown.textContent;
   } else if (currentTab === 'json') {
@@ -84,12 +84,12 @@ copyBtn.addEventListener('click', () => {
 });
 
 function renderPreview(data) {
-  const md = data.markdown || data.data || '';
+  const md = data.markdown || data.data?.content || data.data || '';
   preview.innerHTML = marked.parse(md);
 }
 
 function renderMarkdown(data) {
-  const md = data.markdown || data.data || '';
+  const md = data.markdown || data.data?.content || data.data || '';
   markdown.textContent = md;
 }
 
