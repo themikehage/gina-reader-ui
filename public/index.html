@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gina Reader — URL to Markdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="logo">Gina Reader</h1>
+      <p class="subtitle">Convierte cualquier URL en Markdown limpio</p>
+    </header>
+
+    <form class="reader-form" id="readerForm">
+      <div class="input-group">
+        <input
+          type="url"
+          id="urlInput"
+          class="url-input"
+          placeholder="https://ejemplo.com/articulo"
+          required
+          autofocus
+        >
+        <button type="submit" class="btn" id="readBtn">
+          <span class="btn-text">Convertir</span>
+          <span class="btn-spinner"></span>
+        </button>
+      </div>
+    </form>
+
+    <div id="resultArea" class="result-area hidden">
+      <div class="toolbar">
+        <div class="tabs">
+          <button class="tab active" data-tab="preview">Preview</button>
+          <button class="tab" data-tab="markdown">Markdown</button>
+          <button class="tab" data-tab="json">JSON</button>
+        </div>
+        <button class="btn-copy" id="copyBtn">Copiar</button>
+      </div>
+      <div id="preview" class="preview"></div>
+      <pre id="markdown" class="markdown hidden"></pre>
+      <pre id="json" class="json hidden"></pre>
+    </div>
+
+    <div id="errorArea" class="error-area hidden"></div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

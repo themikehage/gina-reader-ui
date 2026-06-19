@@ -1,0 +1,37 @@
+services:
+  gina-reader-ui:
+    image: ghcr.io/jina-ai/reader:latest
+    environment:
+      - PORT=8080
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.gina-reader.rule=Host(`gina-reader.pages.therry.dev`)
+      - traefik.http.routers.gina-reader.entrypoints=http,https
+      - traefik.http.routers.gina-reader.tls=true
+      - traefik.http.routers.gina-reader.tls.certresolver=letsencrypt
+      - traefik.http.services.gina-reader.loadbalancer.server.port=8080
+      - traefik.docker.network=coolify
+
+  gina-reader-ui-web:
+    build: .
+    environment:
+      - PORT=3000
+      - READER_API=https://gina-reader.pages.therry.dev
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.gina-reader-ui.rule=Host(`reader-ui.pages.therry.dev`)
+      - traefik.http.routers.gina-reader-ui.entrypoints=http,https
+      - traefik.http.routers.gina-reader-ui.tls=true
+      - traefik.http.routers.gina-reader-ui.tls.certresolver=letsencrypt
+      - traefik.http.services.gina-reader-ui.loadbalancer.server.port=3000
+      - traefik.docker.network=coolify
+
+networks:
+  coolify:
+    external: true
